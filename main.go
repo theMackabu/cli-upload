@@ -13,11 +13,11 @@ import (
 )
 
 type Response struct {
-	ID     string
-	DelKey string
-	Name   string
-	Size   float64
-	Url    string
+	ID      string
+	Private bool
+	Name    string
+	Size    float64
+	Url     string
 }
 
 func SendPostRequest(url string, filename string) (string, []byte) {
@@ -62,9 +62,17 @@ func main() {
 		return
 	}
 
-	pathArr := strings.Split(os.Args[1], "/")
-	_, content := SendPostRequest(fmt.Sprintf("https://themackabu.dev/cdn/upload/%s", pathArr[len(pathArr)-1]), os.Args[1])
-	json.Unmarshal([]byte(string(content)), &response)
+	if len(os.Args) == 3 {
+		if os.Args[2] == "-p" {
+			pathArr := strings.Split(os.Args[1], "/")
+			_, content := SendPostRequest(fmt.Sprintf("https://themackabu.dev/cdn/upload/%s?q=private", pathArr[len(pathArr)-1]), os.Args[1])
+			json.Unmarshal([]byte(string(content)), &response)
+		}
+	} else {
+		pathArr := strings.Split(os.Args[1], "/")
+		_, content := SendPostRequest(fmt.Sprintf("https://themackabu.dev/cdn/upload/%s", pathArr[len(pathArr)-1]), os.Args[1])
+		json.Unmarshal([]byte(string(content)), &response)
+	}
 
-	fmt.Printf("\033[0;36mInformation\033[0m\n - Uploaded: \033[0;32m%s\033[0m\n - Size: \033[0;32m%.2fkb\033[0m\n - ID: \033[0;33m%s\033[0m\n\n\033[0;36mImportant\033[0m\n - Access URL: \033[0;35m%s\033[0m\n - Removal token: \033[0;31m%s\033[0m\n", response.Name, response.Size/1000, response.ID, response.Url, response.DelKey)
+	fmt.Printf("\033[0;36mInformation\033[0m\n - Uploaded: \033[0;32m%s\033[0m\n - Size: \033[0;32m%.2fkb\033[0m\n - ID: \033[0;33m%s\033[0m\n\n\033[0;36mImportant\033[0m\n - Private: \033[0;31m%v\033[0m\n - Access URL: \033[0;35m%s\033[0m\n", response.Name, response.Size/1000, response.ID, response.Private, response.Url)
 }
