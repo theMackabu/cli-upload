@@ -65,12 +65,12 @@ func main() {
 	if len(os.Args) == 3 {
 		if os.Args[2] == "-p" {
 			pathArr := strings.Split(os.Args[1], "/")
-			_, content := SendPostRequest(fmt.Sprintf("https://themackabu.dev/cdn/upload/%s?q=private", pathArr[len(pathArr)-1]), os.Args[1])
+			_, content := SendPostRequest(fmt.Sprintf("https://themackabu.dev/cdn/%s?q=private", pathArr[len(pathArr)-1]), os.Args[1])
 			json.Unmarshal([]byte(string(content)), &response)
 		}
 	} else {
 		pathArr := strings.Split(os.Args[1], "/")
-		_, content := SendPostRequest(fmt.Sprintf("https://themackabu.dev/cdn/upload/%s", pathArr[len(pathArr)-1]), os.Args[1])
+		_, content := SendPostRequest(fmt.Sprintf("https://themackabu.dev/cdn/%s", pathArr[len(pathArr)-1]), os.Args[1])
 		json.Unmarshal([]byte(string(content)), &response)
 	}
 
