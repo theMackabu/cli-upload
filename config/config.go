@@ -15,6 +15,7 @@ func NewConfig() *cli.Config {
 	var config struct {
 		BaseURL string `json:"baseURL"`
 		Timeout string `json:"timeout"`
+		Token   string `json:"token"`
 	}
 
 	if err := json.Unmarshal(configData, &config); err != nil {
@@ -29,6 +30,10 @@ func NewConfig() *cli.Config {
 		panic("timeout is required in config.json")
 	}
 
+	if config.Token == "" {
+		panic("token is required in config.json")
+	}
+
 	timeout, err := time.ParseDuration(config.Timeout)
 	if err != nil {
 		panic(fmt.Sprintf("invalid timeout format in config.json: %v", err))
@@ -37,5 +42,6 @@ func NewConfig() *cli.Config {
 	return &cli.Config{
 		BaseURL: config.BaseURL,
 		Timeout: timeout,
+		Token:   config.Token,
 	}
 }

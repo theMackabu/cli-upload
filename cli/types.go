@@ -25,6 +25,7 @@ type Size struct {
 type Config struct {
 	BaseURL string
 	Timeout time.Duration
+	Token   string
 }
 
 type FileUploader struct {

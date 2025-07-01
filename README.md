@@ -1,7 +1,8 @@
 upload files to [themackabu/uploader](https://github.com/theMackabu/uploader)
 
 ```bash
-# edit config/config.json
+# create config.json from template
+# and edit it with appropriate values
 go build -o upload
 ./upload <filename> [options]
 ```

@@ -69,6 +69,7 @@ func (fu *FileUploader) UploadFile(filename string, private bool) (*Response, er
 	}
 
 	req.Header.Set("Content-Type", "application/octet-stream")
+	req.Header.Set("Authorization", "Bearer "+fu.config.Token)
 	req.ContentLength = fileInfo.Size()
 
 	resp, err := fu.client.Do(req)
