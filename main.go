@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
+
 	"upload/cli"
+	"upload/config"
 )
 
 func main() {
@@ -20,7 +22,7 @@ func main() {
 		return
 	}
 
-	config := cli.NewConfig()
+	config := config.NewConfig()
 	uploader := cli.NewFileUploader(config)
 
 	fmt.Printf("Uploading %s%s%s...\n", cli.ColorCyan, filename, cli.ColorReset)

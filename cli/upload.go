@@ -7,17 +7,9 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/cheggaaa/pb/v3"
 )
-
-func NewConfig() *Config {
-	return &Config{
-		BaseURL: "https://themackabu.dev/cdn",
-		Timeout: 30 * time.Second,
-	}
-}
 
 func NewFileUploader(config *Config) *FileUploader {
 	return &FileUploader{
